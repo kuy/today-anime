@@ -1,0 +1,71 @@
+type media = [
+  | Tv <json name="tv">
+  | Ova <json name="ova">
+  | Movie <json name="movie">
+  | Web <json name="web">
+  | Other <json name="other">
+]
+
+type facebook = {
+  og_image_url : string;
+}
+
+type twitter = {
+  mini_avatar_url : string;
+  normal_avatar_url : string;
+  bigger_avatar_url : string;
+  original_avatar_url : string;
+  image_url : string;
+}
+
+type images = {
+  facebook : facebook;
+  twitter : twitter;
+  recommended_url : string;
+}
+
+type kind = [
+  | WannaWatch <json name="wanna_watch">
+  | Watching <json name="watching">
+  | Watched <json name="watched">
+  | OnHold <json name="on_hold">
+  | StopWatching <json name="stop_watching">
+  | NoSelect <json name="no_select">
+]
+
+type status = {
+  kind : kind;
+}
+
+type work = {
+  id : int;
+  title : string;
+  title_kana : string;
+  media	: media;
+  media_text : string;
+  season_name : string;
+  season_name_text : string;
+  released_on : string;
+  released_on_about : string;
+  official_site_url : string;
+  wikipedia_url : string;
+  twitter_username : string;
+  twitter_hashtag : string;
+  syobocal_tid : string;
+  mal_anime_id : string;
+  images : images;
+  episodes_count : int;
+  watchers_count : int;
+  reviews_count : int;
+  no_episodes : bool;
+  ?status : status option;
+}
+
+type works = work list
+
+type works_payload = {
+  works : works;
+  total_count : int;
+  ?next_page : int option;
+  ?prev_page : int option;
+}

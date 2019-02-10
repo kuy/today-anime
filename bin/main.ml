@@ -3,8 +3,8 @@ open Async
 
 let run =
   Annict.list_of_watching ()
-  >>| fun body ->
-  print_endline body
+  >>| fun works ->
+  List.iter (fun (work : Annict_t.work) -> print_endline work.title) works
 
 let () =
   Command.async_spec
