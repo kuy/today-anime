@@ -1,0 +1,3 @@
+(library
+  (name lib)
+  (libraries core async_ssl cohttp-async yojson))
