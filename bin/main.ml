@@ -2,12 +2,9 @@ open Lib
 open Async
 
 let run =
-  let do_request =
-    let result = Annict.list_of_watching () in
-    Deferred.upon result (fun body ->
-    print_endline body) in
-  ignore do_request;
-  Deferred.never ()
+  Annict.list_of_watching ()
+  >>| fun body ->
+  print_endline body
 
 let () =
   Command.async_spec
