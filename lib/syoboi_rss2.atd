@@ -1,0 +1,42 @@
+type program = {
+  title <json name="Title"> : string;
+  short_title <json name="ShortTitle"> : string;
+  category <json name="Cat"> : string;
+  urls <json name="Urls"> : string;
+  start_time <json name="StTime"> : string;
+  end_time <json name="EdTime"> : string;
+  last_update <json name="LastUpdate"> : string;
+  ?count <json name="Count"> : string option;
+  start_offset <json name="StOffset"> : string;
+  tid <json name="TID"> : string;
+  pid <json name="PID"> : string;
+  comment <json name="ProgComment"> : string;
+  ?subtitle <json name="SubTitle"> : string option;
+  flag <json name="Flag"> : string;
+  deleted <json name="Deleted"> : string;
+  warn <json name="Warn"> : string;
+  revision <json name="Revision"> : string;
+  all_day <json name="AllDay"> : string;
+  channel_id <json name="ChID"> : string;
+  channel_name <json name="ChName"> : string;
+  channel_url <json name="ChURL"> : string;
+  channel_guid <json name="ChGID"> : string;
+}
+
+type programs = program list
+
+type channel = {
+  id <json name="ChID"> : string;
+  name <json name="ChName"> : string;
+  url <json name="ChURL"> : string;
+  epg_name <json name="ChiEPGName"> : string;
+  gid <json name="ChGID"> : string;
+  comment <json name="ChComment"> : string;
+}
+
+type channels = (string * channel) list <json repr="object">
+
+type programs_payload = {
+  programs <json name="items"> : programs;
+  channels <json name="chInfo"> : channels;
+}
