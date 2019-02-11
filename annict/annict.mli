@@ -1,3 +1,5 @@
 open Async
 
-val list_of_watching : unit -> Annict_t.works Deferred.t
+val make_url : string -> Uri.t
+
+val works : ?season:string -> unit -> Annict_t.works Deferred.t

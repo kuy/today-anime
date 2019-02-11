@@ -8,6 +8,17 @@
   (deps    annict.atd)
   (action  (run atdgen -j -j-std %{deps})))
 
+(rule
+ (targets annict_me_t.ml annict_me_t.mli)
+  (deps    annict_me.atd)
+  (action  (run atdgen -t %{deps})))
+
+(rule
+ (targets annict_me_j.ml annict_me_j.mli)
+  (deps    annict_me.atd)
+  (action  (run atdgen -j -j-std %{deps})))
+
 (library
   (name annict)
+  (wrapped false)
   (libraries core async_ssl cohttp-async yojson atdgen))

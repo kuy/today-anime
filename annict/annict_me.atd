@@ -1,0 +1,54 @@
+type media' <ocaml from="Annict" t="media"> = abstract
+type images' <ocaml from="Annict" t="images"> = abstract
+
+type kind = [
+  | WannaWatch <json name="wanna_watch">
+  | Watching <json name="watching">
+  | Watched <json name="watched">
+  | OnHold <json name="on_hold">
+  | StopWatching <json name="stop_watching">
+  | NoSelect <json name="no_select">
+]
+
+type status = {
+  kind : kind;
+}
+
+(* NOTE: This is a workaround for a limitation that the abstract type cannot be inherited *)
+(* type work' <ocaml from="Annict" t="work"> = abstract *)
+type work' = {
+  id : int;
+  title : string;
+  title_kana : string;
+  media	: media';
+  media_text : string;
+  season_name : string;
+  season_name_text : string;
+  released_on : string;
+  released_on_about : string;
+  official_site_url : string;
+  wikipedia_url : string;
+  twitter_username : string;
+  twitter_hashtag : string;
+  syobocal_tid : string;
+  mal_anime_id : string;
+  images : images';
+  episodes_count : int;
+  watchers_count : int;
+  reviews_count : int;
+  no_episodes : bool;
+}
+
+type work = {
+  inherit work';
+  ?status : status option;
+}
+
+type works = work list
+
+type works_payload = {
+  works : works;
+  total_count : int;
+  ?next_page : int option;
+  ?prev_page : int option;
+}

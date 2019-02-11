@@ -24,19 +24,6 @@ type images = {
   recommended_url : string;
 }
 
-type kind = [
-  | WannaWatch <json name="wanna_watch">
-  | Watching <json name="watching">
-  | Watched <json name="watched">
-  | OnHold <json name="on_hold">
-  | StopWatching <json name="stop_watching">
-  | NoSelect <json name="no_select">
-]
-
-type status = {
-  kind : kind;
-}
-
 type work = {
   id : int;
   title : string;
@@ -58,7 +45,6 @@ type work = {
   watchers_count : int;
   reviews_count : int;
   no_episodes : bool;
-  ?status : status option;
 }
 
 type works = work list
