@@ -1,13 +1,19 @@
 open Lib
+open Core
 open Async
 
+let list_of_syobocal_ids () =
+  let%bind works = Annict.list_of_watching () in
+  return @@ List.map ~f:(fun (work : Annict_t.work) -> work.syobocal_tid) works
+
+let list_of_today's_animes ids =
+  let%bind programs = Syoboi.list_of_programs () in
+  let favorites = List.filter ~f:(fun (program : Syoboi_rss2_t.program) -> (List.count ~f:(fun id -> id = program.tid) ids) > 0) programs in
+  return @@ List.iter ~f:(fun (program : Syoboi_rss2_t.program) -> print_endline program.title) favorites
+
 let run =
-  (*Annict.list_of_watching ()
-  >>| fun works ->
-  List.iter (fun (work : Annict_t.work) -> print_endline work.title) works*)
-  Syoboi.list_of_programs ()
-  >>| fun programs ->
-  List.iter (fun (prog : Syoboi_rss2_t.program) -> print_endline prog.title) programs
+  let%bind ids = list_of_syobocal_ids () in
+  list_of_today's_animes ids
 
 let () =
   Command.async_spec
