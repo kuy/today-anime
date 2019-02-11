@@ -10,9 +10,11 @@
 
 ## Prepare
 
-Get an access token from Annict.
+Create an environment using [opam](https://opam.ocaml.org/doc/Usage.html#opam-switch).
 
-Set it [here](https://github.com/kuy/today-anime/blob/master/lib/annict.ml#L10) in `lib/annict.ml` file.
+Get an [access token](https://docs.annict.com/ja/api/v1/authentication.html) from Annict.
+
+Set it [here](https://github.com/kuy/today-anime/blob/master/annict/annict_client.ml#L3) in `annict/annict_client.ml` file.
 
 ## Usage
 
