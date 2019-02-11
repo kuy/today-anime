@@ -1,5 +1,7 @@
 # today-anime?
 
+**I can't keep in mind a day of the week of my favorite animes' broadcast 😇**
+
 ## Requirements
 
 - OCaml 4.07.1
