@@ -1,0 +1,13 @@
+(rule
+ (targets syobocal_rss2_t.ml syobocal_rss2_t.mli)
+  (deps    syobocal_rss2.atd)
+  (action  (run atdgen -t %{deps})))
+
+(rule
+ (targets syobocal_rss2_j.ml syobocal_rss2_j.mli)
+  (deps    syobocal_rss2.atd)
+  (action  (run atdgen -j -j-std %{deps})))
+
+(library
+  (name syobocal)
+  (libraries core async_ssl cohttp-async yojson atdgen calendar))

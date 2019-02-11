@@ -23,6 +23,6 @@ let list_of_programs () =
   |> Cohttp_async.Client.get
   >>= fun (_, body) ->
   Cohttp_async.Body.to_string body
-  >>| Syoboi_rss2_j.programs_payload_of_string
+  >>| Syobocal_rss2_j.programs_payload_of_string
   >>| fun payload ->
   payload.programs

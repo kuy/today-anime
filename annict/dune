@@ -1,0 +1,13 @@
+(rule
+ (targets annict_t.ml annict_t.mli)
+  (deps    annict.atd)
+  (action  (run atdgen -t %{deps})))
+
+(rule
+ (targets annict_j.ml annict_j.mli)
+  (deps    annict.atd)
+  (action  (run atdgen -j -j-std %{deps})))
+
+(library
+  (name annict)
+  (libraries core async_ssl cohttp-async yojson atdgen))
