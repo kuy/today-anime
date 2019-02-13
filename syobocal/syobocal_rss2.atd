@@ -29,7 +29,7 @@ type channel = {
   id <json name="ChID"> : string;
   name <json name="ChName"> : string;
   url <json name="ChURL"> : string;
-  epg_name <json name="ChiEPGName"> : string;
+  iepg_name <json name="ChiEPGName"> : string;
   gid <json name="ChGID"> : string;
   comment <json name="ChComment"> : string;
 }
