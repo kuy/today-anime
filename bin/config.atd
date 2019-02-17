@@ -1,0 +1,7 @@
+type annict = {
+  access_token <json name="accessToken"> : string;
+}
+
+type body = {
+  annict : annict;
+}

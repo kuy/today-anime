@@ -1,8 +1,8 @@
 open Core
 open Async
 
-let list_of_syobocal_ids () =
-  let%bind works = Annict_me.works ~season:"2019-winter" ~status:"watching" () in
+let list_of_syobocal_ids token =
+  let%bind works = Annict_me.works ~season:"2019-winter" ~status:"watching" token in
   return @@ List.map ~f:(fun work -> work.syobocal_tid) works
 
 let list_of_today's_animes ids =
@@ -11,7 +11,8 @@ let list_of_today's_animes ids =
   return @@ List.iter ~f:Syobocal.print_program favorites
 
 let run =
-  let%bind ids = list_of_syobocal_ids () in
+  let%bind config = Config.load () in
+  let%bind ids = list_of_syobocal_ids config.annict.access_token in
   list_of_today's_animes ids
 
 let () =

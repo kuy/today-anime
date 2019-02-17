@@ -1,3 +1,13 @@
+(rule
+ (targets config_t.ml config_t.mli)
+  (deps    config.atd)
+  (action  (run atdgen -t %{deps})))
+
+(rule
+ (targets config_j.ml config_j.mli)
+  (deps    config.atd)
+  (action  (run atdgen -j -j-std %{deps})))
+
 (executable
   (name main)
   (libraries annict syobocal)
