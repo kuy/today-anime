@@ -1,3 +1,6 @@
 open Async
+open CalendarLib
 
-val list_of_programs : unit -> Syobocal_rss2_t.programs Deferred.t
+val print_program : Syobocal_rss2_t.program -> unit
+
+val programs : ?range:(Date.t * Date.t) -> unit -> Syobocal_rss2_t.programs Deferred.t

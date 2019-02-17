@@ -6,9 +6,9 @@ let list_of_syobocal_ids () =
   return @@ List.map ~f:(fun work -> work.syobocal_tid) works
 
 let list_of_today's_animes ids =
-  let%bind programs = Syobocal.list_of_programs () in
+  let%bind programs = Syobocal.programs () in
   let favorites = List.filter ~f:(fun program -> (List.count ~f:(fun id -> id = program.tid) ids) > 0) programs in
-  return @@ List.iter ~f:(fun program -> print_endline program.title) favorites
+  return @@ List.iter ~f:Syobocal.print_program favorites
 
 let run =
   let%bind ids = list_of_syobocal_ids () in
