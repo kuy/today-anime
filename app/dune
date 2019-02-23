@@ -8,7 +8,8 @@
   (deps    config.atd)
   (action  (run atdgen -j -j-std %{deps})))
 
-(executable
-  (name main)
+(library
+  (name app)
+  (wrapped false)
   (libraries annict syobocal)
   (preprocess (pps ppx_let)))

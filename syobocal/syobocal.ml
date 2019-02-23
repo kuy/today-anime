@@ -2,6 +2,8 @@ open Core
 open Async
 open CalendarLib
 
+type program = Syobocal_rss2_t.program
+
 let map_t f (a, b) = (f a, f b)
 
 let base_url = "http://cal.syoboi.jp"
@@ -28,11 +30,6 @@ let by_today (p:Syobocal_rss2_t.program) =
   (Unix.time ()) -. (Float.of_int (24 * 60 * 60)) < (Float.of_string p.start_time)
 
 let pass_all _ = true
-
-let print_program (p:Syobocal_rss2_t.program) =
-  let count = Option.value ~default:"?" p.count in
-  let subtitle = Option.value ~default:"[Untitled]" p.subtitle in
-  printf "%s: %s [%s] %s\n" (CalendarLib.Printer.Date.sprint "%Y/%m/%d" (CalendarLib.Date.from_unixfloat @@ Float.of_string p.start_time)) p.title count subtitle
 
 let programs ?(today=true) ?range () =
   let range = Option.value ~default:(within_days 5) range in

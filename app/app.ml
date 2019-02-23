@@ -8,20 +8,8 @@ let list_of_syobocal_ids token =
 let list_of_today's_animes ids ~more =
   let%bind programs = Syobocal.programs ~today:(not more) () in
   let favorites = List.filter ~f:(fun program -> (List.count ~f:(fun id -> id = program.tid) ids) > 0) programs in
-  return @@ List.iter ~f:Syobocal.print_program favorites
+  return @@ List.map ~f:Program.to_string favorites
 
-let run ~more =
-  let%bind config = Config.load () in
+let today's_anime ?(more=false) (config:Config.t) =
   let%bind ids = list_of_syobocal_ids config.annict.access_token in
   list_of_today's_animes ids ~more
-
-let () =
-  Command.async_spec
-    ~summary: "Fetch my watch list of this season"
-    Command.Spec.(
-      empty
-      +> flag "--more" no_arg
-        ~doc: " Show more items"
-    )
-    (fun more () -> run ~more)
-  |> Command.run
