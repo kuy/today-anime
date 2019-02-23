@@ -46,6 +46,14 @@ You couldn't watch animes yesterday? No problem, just add this option to show al
 
 Create an environment using [opam](https://opam.ocaml.org/doc/Usage.html#opam-switch).
 
-### Run
+### CLI
 
-Run `dune exec bin/main.exe`.
+#### Run
+
+`dune exec cli/main.exe`
+
+### REST API
+
+#### Run
+
+`dune exec api/main.exe`
