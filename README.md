@@ -27,6 +27,12 @@ To provide the access token to the application, put `.today-anime.json` file to 
 
 Simply run `today-anime`.
 
+### Options
+
+#### `--more`
+
+You couldn't watch animes yesterday? No problem, just add this option to show all past 5 days.
+
 
 ## Development
 

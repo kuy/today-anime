@@ -27,13 +27,15 @@ let asc_tid (p1:Syobocal_rss2_t.program) (p2:Syobocal_rss2_t.program) =
 let by_today (p:Syobocal_rss2_t.program) =
   (Unix.time ()) -. (Float.of_int (24 * 60 * 60)) < (Float.of_string p.start_time)
 
+let pass_all _ = true
+
 let print_program (p:Syobocal_rss2_t.program) =
   let count = Option.value ~default:"?" p.count in
   let subtitle = Option.value ~default:"[Untitled]" p.subtitle in
   printf "%s: %s [%s] %s\n" (CalendarLib.Printer.Date.sprint "%Y/%m/%d" (CalendarLib.Date.from_unixfloat @@ Float.of_string p.start_time)) p.title count subtitle
 
-let programs ?range () =
-  let range = Option.value ~default:(within_days 3) range in
+let programs ?(today=true) ?range () =
+  let range = Option.value ~default:(within_days 5) range in
   query_url range
   |> Cohttp_async.Client.get
   >>= fun (_, body) ->
@@ -43,4 +45,4 @@ let programs ?range () =
   payload.programs
   |> List.dedup_and_sort ~compare:asc_tid
   |> List.dedup_and_sort ~compare:asc_start
-  |> List.filter ~f:by_today
+  |> List.filter ~f:(if today then by_today else pass_all)
