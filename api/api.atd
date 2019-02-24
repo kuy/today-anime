@@ -1,0 +1,19 @@
+type program = {
+  title : string;
+  ?subtitle : string option;
+  ?count : string option;
+  start_time <json name="startTime"> : string;
+  end_time <json name="endTime"> : string;
+}
+
+type programs = program list
+
+type programs_response = {
+  status : int;
+  items : programs;
+}
+
+type error_response = {
+  status : int;
+  message : string;
+}

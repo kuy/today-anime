@@ -34,6 +34,19 @@ Simply run `today-anime`.
 You couldn't watch animes yesterday? No problem, just add this option to show all past 5 days.
 
 
+## API
+
+### Run
+
+`today-anime-api`
+
+### Endpoints
+
+#### `/today`
+
+`curl -X GET http://localhost:8080/today`
+
+
 ## Development
 
 ### Requirements
@@ -52,7 +65,7 @@ Create an environment using [opam](https://opam.ocaml.org/doc/Usage.html#opam-sw
 
 `dune exec cli/main.exe`
 
-### REST API
+### API
 
 #### Run
 
