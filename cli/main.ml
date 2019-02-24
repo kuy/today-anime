@@ -4,7 +4,7 @@ open Async
 let run ~more =
   let%bind config = Config.load () in
   let%bind programs = App.today's_anime ~more config in
-  return @@ List.iter ~f:print_endline programs
+  return @@ List.iter ~f:(fun p -> print_endline (Program.to_string p)) programs
 
 let () =
   Command.async_spec
