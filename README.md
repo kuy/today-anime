@@ -49,6 +49,14 @@ You couldn't watch animes yesterday? No problem, just add this option to show al
 
 ## Development
 
+### Module structure
+
+- `cli`: CLI application executable
+- `api`: REST API server executable
+- `app`: Core application module
+- `annict`: Annict API wrapper
+- `syobocal`: Syoboi Calendar API wrapper
+
 ### Requirements
 
 - OCaml 4.07.1
