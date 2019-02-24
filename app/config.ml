@@ -5,6 +5,8 @@ type t = Config_t.body
 
 exception File_not_found
 
+let create token = ({ annict = { access_token = token } } : t)
+
 let load () =
   let home = Sys.getenv_exn "HOME" in
   let path = home ^ "/.today-anime.json" in
