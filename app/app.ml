@@ -12,3 +12,5 @@ let list_of_today's_animes ids ~more =
 let today's_anime ?(more=false) (config:Config.t) =
   list_of_syobocal_ids config.annict.access_token
   >>= list_of_today's_animes ~more
+
+let version () = "0.3.0"
