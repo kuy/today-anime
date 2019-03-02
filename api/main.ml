@@ -29,6 +29,11 @@ let request_handler _ reqd =
         let programs = List.map ~f:Convert.to_program programs in
         let data = ({ status = 200; items = programs; } : Api_t.programs_response) in
         Reqd.respond_with_string reqd res (Api_j.string_of_programs_response data)
+      | "/version" ->
+        let headers = Headers.of_list ["content-type", "application/json"; "connection", "close"] in
+        let res = Response.create ~headers `OK in
+        let data = ({ status = 200; version = App.version (); } : Api_t.version_response) in
+        Reqd.respond_with_string reqd res (Api_j.string_of_version_response data)
       | _ ->
         let headers = Headers.of_list ["connection", "close"] in
         let res = Response.create ~headers `Not_found in

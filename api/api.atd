@@ -13,6 +13,11 @@ type programs_response = {
   items : programs;
 }
 
+type version_response = {
+  status : int;
+  version : string;
+}
+
 type error_response = {
   status : int;
   message : string;
