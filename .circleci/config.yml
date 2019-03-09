@@ -7,8 +7,14 @@ jobs:
       TERM: dumb
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - e7:2c:fd:1a:b2:e5:22:ca:7e:10:b1:aa:83:41:e3:72
+      - run:
+          name: 'SSH setup'
+          command: ssh-keyscan 155.138.217.181 >> ~/.ssh/known_hosts
       - restore_cache:
-          key: deps-cache-{{ checksum ".circleci/config.yml" }}-{{ checksum "CHANGELOG.md" }}
+          key: deps-cache-{{ checksum "CHANGELOG.md" }}
       - run:
           name: 'Prepare deps'
           command: |
@@ -18,10 +24,9 @@ jobs:
             opam update
             opam install -y dune
             dune external-lib-deps cli/main.exe | grep -E '^-' | cut -c 3- | tr '\n' ' ' > ./deps
-            echo ./deps
             opam install -y $(cat ./deps)
       - save_cache:
-          key: deps-cache-{{ checksum ".circleci/config.yml" }}-{{ checksum "CHANGELOG.md" }}
+          key: deps-cache-{{ checksum "CHANGELOG.md" }}
           paths:
             - '~/.opam'
       - run:
@@ -30,3 +35,7 @@ jobs:
             opam switch 4.07
             eval $(opam env)
             dune build cli/main.exe
+      - run:
+          name: 'Deploy'
+          command: |
+            scp ~/_build/default/cli/main.exe root@155.138.217.181:~/today-anime
