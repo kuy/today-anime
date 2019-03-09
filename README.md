@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/kuy/today-anime.svg?style=svg)](https://circleci.com/gh/kuy/today-anime)
+
 # today-anime?
 
 **I can't keep in mind a day of the week of my favorite animes' broadcast 😇**
