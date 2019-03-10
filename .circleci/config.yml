@@ -9,18 +9,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: 'Enumerate deps'
+          name: 'Determine deps'
           command: |
             opam switch 4.07 && eval $(opam env)
-            opam install -y dune
-            dune external-lib-deps cli/main.exe | grep -E '^-' | cut -c 3- | tr '\n' ' ' > ./_deps
+            echo 'dune async_ssl atdgen calendar cohttp-async core ppx_let yojson' > ./_deps
             cat ./_deps
       - restore_cache:
           key: deps-cache-{{ checksum "_deps" }}
       - run:
           name: 'Prepare deps'
           command: |
-            sudo apt-get install -y pkg-config libssl-dev m4 libffi-dev libgmp-dev
+            sudo apt install -y m4 pkg-config libssl-dev libffi-dev
             opam switch 4.07 && eval $(opam env)
             opam update
             opam install -y $(cat ./_deps)
