@@ -38,4 +38,4 @@ jobs:
       - run:
           name: 'Deploy'
           command: |
-            scp ~/_build/default/cli/main.exe root@155.138.217.181:~/today-anime
+            scp _build/default/cli/main.exe circleci@155.138.217.181:~/today-anime
