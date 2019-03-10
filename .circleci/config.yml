@@ -1,18 +1,13 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/app
     docker:
       - image: ocaml/opam2:ubuntu-lts
     environment:
       TERM: dumb
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - e7:2c:fd:1a:b2:e5:22:ca:7e:10:b1:aa:83:41:e3:72
-      - run:
-          name: 'SSH setup'
-          command: ssh-keyscan 155.138.217.181 >> ~/.ssh/known_hosts
       - run:
           name: 'Enumerate deps'
           command: |
@@ -37,7 +32,38 @@ jobs:
           command: |
             opam switch 4.07 && eval $(opam env)
             dune build cli/main.exe
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: ocaml/opam2:ubuntu-lts
+    environment:
+      TERM: dumb
+    steps:
+      - attach_workspace:
+          at: .
+      - add_ssh_keys:
+          fingerprints:
+            - e7:2c:fd:1a:b2:e5:22:ca:7e:10:b1:aa:83:41:e3:72
+      - run:
+          name: 'SSH setup'
+          command: ssh-keyscan 155.138.217.181 >> ~/.ssh/known_hosts
       - run:
           name: 'Deploy'
           command: |
             scp _build/default/cli/main.exe circleci@155.138.217.181:~/today-anime
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: deploy/production
