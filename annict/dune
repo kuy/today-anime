@@ -21,4 +21,4 @@
 (library
   (name annict)
   (wrapped false)
-  (libraries core tls async_ssl cohttp-async yojson atdgen))
+  (libraries core async_ssl cohttp-async yojson atdgen))
