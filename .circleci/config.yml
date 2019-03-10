@@ -19,7 +19,7 @@ jobs:
       - run:
           name: 'Prepare deps'
           command: |
-            sudo apt-get install -y pkg-config libssl-dev m4 libffi-dev
+            sudo apt-get install -y pkg-config libssl-dev m4 libffi-dev libgmp-dev
             opam switch 4.07 && eval $(opam env)
             opam update
             opam install -y $(cat ./_deps)
