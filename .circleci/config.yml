@@ -13,27 +13,29 @@ jobs:
       - run:
           name: 'SSH setup'
           command: ssh-keyscan 155.138.217.181 >> ~/.ssh/known_hosts
+      - run:
+          name: 'Enumerate deps'
+          command: |
+            opam switch 4.07 && eval $(opam env)
+            opam install -y dune
+            dune external-lib-deps cli/main.exe | grep -E '^-' | cut -c 3- | tr '\n' ' ' > ./_deps
       - restore_cache:
-          key: deps-cache-{{ checksum "CHANGELOG.md" }}
+          key: deps-cache-{{ checksum "_deps" }}
       - run:
           name: 'Prepare deps'
           command: |
             sudo apt-get install -y pkg-config libssl-dev m4 libffi-dev
-            opam switch 4.07
-            eval $(opam env)
+            opam switch 4.07 && eval $(opam env)
             opam update
-            opam install -y dune
-            dune external-lib-deps cli/main.exe | grep -E '^-' | cut -c 3- | tr '\n' ' ' > ./deps
-            opam install -y $(cat ./deps)
+            opam install -y $(cat ./_deps)
       - save_cache:
-          key: deps-cache-{{ checksum "CHANGELOG.md" }}
+          key: deps-cache-{{ checksum "_deps" }}
           paths:
             - '~/.opam'
       - run:
           name: 'Build'
           command: |
-            opam switch 4.07
-            eval $(opam env)
+            opam switch 4.07 && eval $(opam env)
             dune build cli/main.exe
       - run:
           name: 'Deploy'
